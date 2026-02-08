@@ -119,7 +119,7 @@ function spawnSpecialHeart() {
 }
 function autoMoveLoop() {
     moveHeartRandomly();
-    autoMoveTimer = setTimeout(autoMoveLoop, Math.random() * 500 + 1500 );
+    autoMoveTimer = setTimeout(autoMoveLoop, Math.random() * 500 + 300 );
 }
 function moveHeartRandomly() {
     specialHeart.classList.add('invisible');
@@ -215,4 +215,5 @@ function createHeart() { if (!rainContainer) return; const heart = document.crea
 rainInterval = setInterval(createHeart, 300);
 function createSparkle() { if (!sparkleContainer) return; const sparkle = document.createElement('div'); sparkle.classList.add('sparkle'); const randomX = Math.random() * 300 - 150; const randomY = Math.random() * 300 - 150; sparkle.style.left = `calc(50% + ${randomX}px)`; sparkle.style.top = `calc(50% + ${randomY}px)`; const size = Math.random() * 5 + 3; sparkle.style.width = `${size}px`; sparkle.style.height = `${size}px`; sparkle.style.animationDuration = (Math.random() * 1 + 1.5) + 's'; sparkleContainer.appendChild(sparkle); setTimeout(() => { sparkle.remove(); }, 2500); }
 setInterval(createSparkle, 150);
+
 function confettiEffect() { for(let i=0; i<30; i++) setTimeout(createHeart, i * 30); }
