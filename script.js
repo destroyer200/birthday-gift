@@ -185,7 +185,7 @@ function startFinalTyping() {
 }
 
 // --- VÒNG QUAY ---
-const prizes = ["1 Cái nắm tay 🤗", "924k 💸", "Buffet 🦞", "Cái Nịt 🤣", "Trà Sữa 🧋", "Trái tim của anh 💜"];
+const prizes = ["Tấm lòng của anh 🤗", "924k 💸", "Buffet 🦞", "Cái Nịt 🤣", "Trà Sữa 🧋", "Trái tim của anh 💜"];
 const colors = ["#FFB7B2", "#FFF0F5", "#E2F0CB", "#FF9AA2", "#C7CEEA", "#FFDAC1"];
 const canvas = document.getElementById("canvas"); const ctx = canvas.getContext("2d");
 const spinBtn = document.getElementById("spin-btn"); let startAngle = 0; const arc = Math.PI / (prizes.length / 2);
@@ -214,6 +214,7 @@ rainInterval = setInterval(createHeart, 300);
 function createSparkle() { if (!sparkleContainer) return; const sparkle = document.createElement('div'); sparkle.classList.add('sparkle'); const randomX = Math.random() * 300 - 150; const randomY = Math.random() * 300 - 150; sparkle.style.left = `calc(50% + ${randomX}px)`; sparkle.style.top = `calc(50% + ${randomY}px)`; const size = Math.random() * 5 + 3; sparkle.style.width = `${size}px`; sparkle.style.height = `${size}px`; sparkle.style.animationDuration = (Math.random() * 1 + 1.5) + 's'; sparkleContainer.appendChild(sparkle); setTimeout(() => { sparkle.remove(); }, 2500); }
 setInterval(createSparkle, 150);
 function confettiEffect() { for(let i=0; i<30; i++) setTimeout(createHeart, i * 30); }
+
 
 
 
