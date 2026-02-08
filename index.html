@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Phương Uyên 💜</title>
+    <link rel="stylesheet" href="style.css?v=24">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap&subset=vietnamese" rel="stylesheet">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+</head>
+<body>
+
+    <audio id="bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio>
+    <audio id="secret-music" loop><source src="secret.mp3" type="audio/mpeg"></audio>
+    <audio id="letter-music" loop><source src="letter-song.mp3" type="audio/mpeg"></audio>
+
+    <div id="login-modal">
+        <div class="login-box">
+            <h2>🔐 Mật khẩu là gì dợ?</h2>
+            <p>Nhập ngày sinh của em để mở quà nha!</p>
+            <input type="text" id="password-input" placeholder="Ví dụ: 17/6/2000">
+            <p id="error-msg" class="hidden">Sai rồi lêu lêu 😜</p>
+            <button onclick="checkPassword()">MỞ QUÀ NGAY 🎁</button>
+        </div>
+    </div>
+
+    <div id="rain-container"></div>
+    <div id="sparkle-container"></div>
+
+    <div id="floating-birthday">
+        Happy<br>Birthday<br>Phương<br>Uyên 💜
+    </div>
+
+    <div id="special-heart" class="hidden">💖</div>
+
+    <div id="wheel-modal" class="hidden">
+        <div class="wheel-wrapper">
+            <span class="close-btn" onclick="closeWheel()">&times;</span>
+            <h2 class="wheel-title">✨ EM MUỐN PHẦN THƯỞNG NÀO ✨</h2>
+            <div class="wheel-container">
+                <div class="wheel-outer-rim">
+                    <div class="light"></div><div class="light"></div><div class="light"></div>
+                    <div class="light"></div><div class="light"></div><div class="light"></div>
+                    <div class="light"></div><div class="light"></div><div class="light"></div>
+                    <div class="light"></div><div class="light"></div><div class="light"></div>
+                </div>
+                <div class="pointer-container"><div class="pointer-body"></div></div>
+                <canvas id="canvas" width="320" height="320"></canvas>
+                <div class="center-cap"><div class="center-star">★</div></div>
+            </div>
+            <button id="spin-btn">Thử vận may nào!</button>
+        </div>
+    </div>
+
+    <div id="win-screen" class="hidden">
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="video.mp4" type="video/mp4">
+        </video>
+
+        <div id="envelope-container" onclick="openLetter()">
+            <div class="envelope-icon">💌</div>
+        </div>
+
+        <div id="letter-content-area" class="hidden">
+            <div class="love-letter">
+                <p id="final-letter-content"></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="result-modal" class="hidden">
+        <div class="result-content">
+            <h3>🎉 CHÚC MỪNG! 🎉</h3>
+            <p>Quà sinh nhật của em là:</p>
+            <h1 class="prize-name">BUFFET HẢI SẢN 🦞</h1>
+            <p>(Chuẩn bị một cái bụng đói nhé!)</p>
+            <button onclick="closeResult()">YEAHHH! ❤️</button>
+        </div>
+    </div>
+
+    <div class="main-container" id="main-interface">
+        <div class="card-3d">
+            <div class="header">
+                <h1>Happy Birthday! 🎂</h1>
+                <p>Xoay người tớ để tìm trái tim bí ẩn nhé 💜</p>
+            </div>
+
+            <div class="model-wrapper">
+                <model-viewer
+                    id="interaction-viewer" src="cutedog.glb" alt="Bé gấu cute"
+                    auto-rotate camera-controls shadow-intensity="1.5" scale="1 1 1"
+                >
+                    <div slot="progress-bar" class="progress-bar">
+                        <div class="update-bar"></div>
+                    </div>
+                    <button class="hotspot-heart-3d" slot="hotspot-chest"
+                            data-position="0 0.15 0.05" data-normal="0 0 1">
+                        <img src="heart3d.png" alt="Heart">
+                    </button>
+                </model-viewer>
+            </div>
+
+            <div class="message-box">
+                <p id="typing-text">...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=24"></script>
+</body>
+</html>
