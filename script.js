@@ -119,7 +119,7 @@ function spawnSpecialHeart() {
 }
 function autoMoveLoop() {
     moveHeartRandomly();
-    autoMoveTimer = setTimeout(autoMoveLoop, Math.random() * 500 + 300 );
+    autoMoveTimer = setTimeout(autoMoveLoop, Math.random() * 500 + 500 );
 }
 function moveHeartRandomly() {
     specialHeart.classList.add('invisible');
@@ -182,7 +182,7 @@ function startFinalTyping() {
 }
 
 // --- VÒNG QUAY ---
-const prizes = ["1 Cái Ôm 🤗", "10k 💸", "Buffet 🦞", "Cái Nịt 🤣", "Trà Sữa 🧋", "Hôn Má 💋"];
+const prizes = ["1 Cái nắm tay 🤗", "924k 💸", "Buffet 🦞", "Cái Nịt 🤣", "Trà Sữa 🧋", "Trái tim của anh 💜"];
 const colors = ["#FFB7B2", "#FFF0F5", "#E2F0CB", "#FF9AA2", "#C7CEEA", "#FFDAC1"];
 const canvas = document.getElementById("canvas"); const ctx = canvas.getContext("2d");
 const spinBtn = document.getElementById("spin-btn"); let startAngle = 0; const arc = Math.PI / (prizes.length / 2);
@@ -217,3 +217,4 @@ function createSparkle() { if (!sparkleContainer) return; const sparkle = docume
 setInterval(createSparkle, 150);
 
 function confettiEffect() { for(let i=0; i<30; i++) setTimeout(createHeart, i * 30); }
+
