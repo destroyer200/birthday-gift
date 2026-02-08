@@ -24,11 +24,10 @@ const funnyReactions = [
     { text: "Bắt em đi 💃", img: "meme3.png" },
     { text: "Cố lên nè 😂", img: "meme4.png" },
     { text: "Sắp được rồi 🤣", img: "meme5.png" },
-    { text: "Thương quá 🥰", img: "meme6.png" }
+    { text: "Thương quá 🥰", img: "meme6.png" } // Đây là bước cuối cùng
 ];
 const maxDodges = funnyReactions.length;
 let autoMoveTimer; let typeWriterTimer; let isLoaded = false;
-// 🔥 BIẾN KIỂM TRA ĐÃ CHƠI CHƯA
 let isGamePlayed = false;
 
 // Elements
@@ -89,24 +88,16 @@ function playPage1MessageLoop() {
     p1TypeTimer = setTimeout(playPage1MessageLoop, typeSpeed);
 }
 
-// --- 🔥 SỰ KIỆN BẤM TIM GẤU (QUÀ BÍ MẬT) 🔥 ---
+// --- TIM GẤU (QUÀ BÍ MẬT) ---
 if (hotspotBtn) {
     hotspotBtn.onclick = (e) => {
         e.preventDefault();
-
-        // KIỂM TRA: Nếu đã chơi rồi thì hiện kết quả luôn
         if (isGamePlayed) {
             resultModal.classList.remove('hidden');
-            return; // Dừng lại, không chạy nhạc hay mở vòng quay nữa
+            return;
         }
-
-        // Nếu CHƯA chơi thì mới chạy nhạc và mở vòng quay
         if(bgMusic) bgMusic.pause();
-        if(secretMusic) {
-            secretMusic.currentTime = 0;
-            secretMusic.volume = 1.0;
-            secretMusic.play();
-        }
+        if(secretMusic) { secretMusic.currentTime = 0; secretMusic.volume = 1.0; secretMusic.play(); }
         wheelModal.classList.remove('hidden');
     };
 }
@@ -117,10 +108,22 @@ function spawnSpecialHeart() {
     specialHeart.classList.add('initial-state'); specialHeart.classList.remove('invisible');
     autoMoveLoop();
 }
+
+// 🔥🔥 ĐÃ SỬA: LOGIC DI CHUYỂN TIM 🔥🔥
 function autoMoveLoop() {
     moveHeartRandomly();
-    autoMoveTimer = setTimeout(autoMoveLoop, Math.random() * 500 + 700 );
+
+    // Mặc định: Nhanh (300ms - 800ms)
+    let delay = Math.random() * 500 + 1000;
+
+    // Nếu đang ở bước cuối ("Thương quá 🥰") -> Chậm lại (2000ms = 2 giây)
+    if (clickCount === maxDodges) {
+        delay = 2000;
+    }
+
+    autoMoveTimer = setTimeout(autoMoveLoop, delay);
 }
+
 function moveHeartRandomly() {
     specialHeart.classList.add('invisible');
     setTimeout(() => {
@@ -129,6 +132,7 @@ function moveHeartRandomly() {
         specialHeart.classList.remove('invisible');
     }, 200);
 }
+
 specialHeart.addEventListener('click', (e) => {
     e.stopPropagation(); clearTimeout(autoMoveTimer);
     if (clickCount < maxDodges) {
@@ -145,7 +149,6 @@ function triggerWin() {
     mainInterface.style.display = 'none';
     winScreen.classList.remove('hidden');
 
-    // Tắt toàn bộ âm thanh
     if(bgMusic) bgMusic.pause();
     if(secretMusic) { secretMusic.pause(); secretMusic.currentTime = 0; }
 
@@ -177,7 +180,7 @@ function startFinalTyping() {
         } else {
             finalLetterElement.innerHTML += finalLetterText.charAt(letterIndex); letterIndex++;
         }
-        setTimeout(startFinalTyping, 70);
+        setTimeout(startFinalTyping, 150);
     }
 }
 
@@ -189,20 +192,15 @@ const spinBtn = document.getElementById("spin-btn"); let startAngle = 0; const a
 function drawWheel() { ctx.clearRect(0, 0, canvas.width, canvas.height); const centerX = 160; const centerY = 160; const outsideRadius = 145; const textRadius = 105; for (let i = 0; i < prizes.length; i++) { const angle = startAngle + i * arc; ctx.fillStyle = colors[i]; ctx.beginPath(); ctx.moveTo(centerX, centerY); ctx.arc(centerX, centerY, outsideRadius, angle, angle + arc, false); ctx.lineTo(centerX, centerY); ctx.fill(); ctx.strokeStyle = "white"; ctx.lineWidth = 3; ctx.stroke(); ctx.save(); ctx.fillStyle = "#4a4a4a"; ctx.font = 'bold 15px Nunito'; ctx.translate(centerX + Math.cos(angle + arc / 2) * textRadius, centerY + Math.sin(angle + arc / 2) * textRadius); ctx.rotate(angle + arc / 2 + Math.PI / 2); const text = prizes[i]; ctx.shadowColor = "rgba(255,255,255,0.8)"; ctx.shadowBlur = 4; ctx.fillText(text, -ctx.measureText(text).width / 2, 0); ctx.restore(); } }
 drawWheel();
 
-// 🔥 XỬ LÝ NÚT QUAY 🔥
 spinBtn.addEventListener("click", () => {
     spinBtn.disabled = true;
-    const rotateAmount = 360 * 8 + 120; // Quay vào Buffet
+    const rotateAmount = 360 * 8 + 120;
     canvas.style.transform = `rotate(${rotateAmount}deg)`;
-
     setTimeout(() => {
         resultModal.classList.remove('hidden');
         confettiEffect();
         spinBtn.disabled = false;
-
-        // 🔥 ĐÁNH DẤU ĐÃ CHƠI XONG
         isGamePlayed = true;
-
     }, 5000);
 });
 
@@ -215,7 +213,7 @@ function createHeart() { if (!rainContainer) return; const heart = document.crea
 rainInterval = setInterval(createHeart, 300);
 function createSparkle() { if (!sparkleContainer) return; const sparkle = document.createElement('div'); sparkle.classList.add('sparkle'); const randomX = Math.random() * 300 - 150; const randomY = Math.random() * 300 - 150; sparkle.style.left = `calc(50% + ${randomX}px)`; sparkle.style.top = `calc(50% + ${randomY}px)`; const size = Math.random() * 5 + 3; sparkle.style.width = `${size}px`; sparkle.style.height = `${size}px`; sparkle.style.animationDuration = (Math.random() * 1 + 1.5) + 's'; sparkleContainer.appendChild(sparkle); setTimeout(() => { sparkle.remove(); }, 2500); }
 setInterval(createSparkle, 150);
-
 function confettiEffect() { for(let i=0; i<30; i++) setTimeout(createHeart, i * 30); }
+
 
 
