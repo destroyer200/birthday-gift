@@ -119,7 +119,7 @@ function spawnSpecialHeart() {
 }
 function autoMoveLoop() {
     moveHeartRandomly();
-    autoMoveTimer = setTimeout(autoMoveLoop, Math.random() * 500 + 500 );
+    autoMoveTimer = setTimeout(autoMoveLoop, Math.random() * 500 + 700 );
 }
 function moveHeartRandomly() {
     specialHeart.classList.add('invisible');
@@ -217,4 +217,5 @@ function createSparkle() { if (!sparkleContainer) return; const sparkle = docume
 setInterval(createSparkle, 150);
 
 function confettiEffect() { for(let i=0; i<30; i++) setTimeout(createHeart, i * 30); }
+
 
